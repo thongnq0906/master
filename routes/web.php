@@ -13,7 +13,7 @@
 
 
 
-Route::group(['middleware' => 'adminLogin'], function() {
+Route::group(['middleware' => ['adminLogin', 'web']], function() {
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('ckfinder-customer', 'Admin\CkfinderController@ckfinderView')->name('ckfinder-customer');
     Route::any('connector', 'Admin\CkfinderController@connector')->name('kakaka');
@@ -84,26 +84,6 @@ Route::group(['middleware' => 'adminLogin'], function() {
             Route::post('/status', 'Admin\IntroController@status')->name('admin.intro.status');
 
         });
-        Route::group(['prefix' => 'support'], function() {
-            Route::get('/', 'Admin\SupportController@index')->name('admin.support.index');
-            Route::get('/create', 'Admin\SupportController@create')->name('admin.support.create');
-            Route::post('/create', 'Admin\SupportController@postCreate')->name('admin.support.createPost');
-            Route::get('/update/{id}', 'Admin\SupportController@update')->name('admin.support.update');
-            Route::post('/update/{id}', 'Admin\SupportController@postUpdate')->name('admin.support.postUpdate');
-            Route::get('/destroy/{id}', 'Admin\SupportController@destroy')->name('admin.support.destroy');
-            Route::get('/status/open/{id}', 'Admin\SupportController@open')->name('support.status.open');
-            Route::get('/status/close/{id}', 'Admin\SupportController@close')->name('support.status.close');
-
-        });
-        Route::group(['prefix' => 'banner'], function() {
-            Route::get('/', 'Admin\BannerController@index')->name('admin.banner.index');
-            Route::get('/create', 'Admin\BannerController@create')->name('admin.banner.create');
-            Route::post('/create', 'Admin\BannerController@postCreate')->name('admin.banner.createPost');
-            Route::get('/update/{id}', 'Admin\BannerController@update')->name('admin.banner.update');
-            Route::post('/update/{id}', 'Admin\BannerController@postUpdate')->name('admin.banner.postUpdate');
-            Route::get('/destroy/{id}', 'Admin\BannerController@destroy')->name('admin.banner.destroy');
-            Route::post('/status', 'Admin\BannerController@status')->name('admin.banner.status');
-        });
         Route::group(['prefix' => 'contact'], function() {
             Route::get('/', 'Admin\ContactController@index')->name('admin.contact.index');
             Route::get('/destroy/{id}', 'Admin\ContactController@destroy')->name('admin.contact.destroy');
@@ -116,14 +96,6 @@ Route::group(['middleware' => 'adminLogin'], function() {
             Route::post('/update/{id}', 'Admin\SlideController@postUpdate')->name('admin.slide.postUpdate');
             Route::get('/destroy/{id}', 'Admin\SlideController@destroy')->name('admin.slide.destroy');
             Route::post('/status', 'Admin\SlideController@status')->name('admin.slide.status');
-        });
-        Route::group(['prefix' => 'cate_slide'], function() {
-            Route::get('/', 'Admin\CateSlideController@index')->name('admin.cate_slide.home');
-            Route::get('/create', 'Admin\CateSlideController@create')->name('admin.cate_slide.create');
-            Route::post('/create', 'Admin\CateSlideController@postCreate')->name('admin.cate_slide.createPost');
-            Route::get('/update/{id}', 'Admin\CateSlideController@update')->name('admin.cate_slide.update');
-            Route::post('/update/{id}', 'Admin\CateSlideController@postUpdate')->name('admin.cate_slide.postUpdate');
-            Route::get('/destroy/{id}', 'Admin\CateSlideController@destroy')->name('admin.cate_slide.destroy');
         });
         Route::group(['prefix' => 'administrator'], function() {
             Route::get('/', 'Admin\LoginController@index')->name('admin.administrator.home');

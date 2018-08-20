@@ -1,14 +1,13 @@
 @extends('admin.partials.master')
-@section('title', 'Thêm Slide')
+@section('title', 'Thêm')
 @section('content')
 <div class="content-wrapper">
-<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="static-content-wrapper">
         <div class="static-content">
             <div class="page-content">
                 <div class="page-heading">
-                    <h1>Thêm Slide</h1>
+                    <h1>Thêm</h1>
                     <div class="options">
                         <div class="btn-toolbar">
                         </div>
@@ -16,7 +15,7 @@
                 </div>
                 <ol class="breadcrumb">
                     <li>Trang chủ</li>
-                    <li>Slide</li>
+                    <li>Slide+Ảnh</li>
                     <li class="active">Thêm</li>
                 </ol>
                 <div class="container-fluid">
@@ -25,97 +24,68 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
+                                @include('errors.message')
                                 <div class="panel-body">
                                     <form role="form" class="form-horizontal" method="POST"
                                     action="{{ route('admin.slide.createPost') }}"
                                     enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <div class="row">
-                                            <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Tên</label>
                                                 <div class="col-md-8">
-                                                        <input type="text" class="form-control"
-                                                        placeholder="Nhập tên" name="name" value="{{ old('name') }}">
-                                                    @if($errors->has('name'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('name') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="text" class="form-control"
+                                                    placeholder="Nhập tên" name="name" value="{{ old('name') }}">
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('description') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Miêu tả</label>
                                                 <div class="col-md-8">
-                                                        <textarea name="description" class="form-control "
-                                                        id="editor1">{{ old('description') }}</textarea>
-                                                    @if($errors->has('description'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('description') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <textarea name="description" class="form-control "
+                                                    id="editor1">{{ old('description') }}</textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('link') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Link chi tiết</label>
                                                 <div class="col-md-8">
-                                                        <input type="text" class="form-control"
-                                                        placeholder="Nhập tên" name="link" value="{{ old('link') }}">
-                                                    @if($errors->has('link'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('link') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="text" class="form-control"
+                                                    placeholder="Nhập tên" name="link" value="{{ old('link') }}">
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('position') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Vị trí: </label>
                                                 <div class="col-md-8">
-                                                        <input type="number" class="form-control"
-                                                        placeholder="Nhập vị trí" name="position" value="{{ old('position') }}">
-                                                    @if($errors->has('position'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('position') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="number" class="form-control"
+                                                    placeholder="Nhập vị trí" name="position" value="{{ old('position') }}">
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('image') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Ảnh bìa: </label>
                                                 <div class="col-md-8">
-                                                        <input type="file" class="form-control" name="image">
-                                                    @if($errors->has('image'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('image') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="file" class="form-control" name="image">
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Trạng thái: </label>
                                                 <label class="switch">
                                                     <input type="checkbox" name="status" value="0">
-
                                                     <span class="slider round"></span>
                                                     <input type="hidden" name="id" value="1">
                                                 </label>
                                             </div>
+
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Danh mục: </label>
                                                 <div class="col-md-8">
                                                     <select class="form-control" name="dislay">
-                                                        <option value="1">Header</option>
-                                                        <option value="2">Ý kiến</option>
-                                                        <option value="3">Banner quảng cáo</option>
+                                                        <option value="1">Slide</option>
+                                                        <option value="2">Logo</option>
+                                                        <option value="3">Banner</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -142,17 +112,13 @@
         </div>
     </div>
 </section>
-<!-- Main content -->
-</div><!-- /.content-wrapper -->
+</div>
 @endsection
 @section('script')
 <script>
     CKEDITOR.replace( 'editor1', {
-        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
-} );
+        filebrowserBrowseUrl: '{{ route('ckfinder-customer') }}',
+    } );
 </script>
 @endsection
 

@@ -3,10 +3,10 @@
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Quản lý Ảnh+Slide+Ads</h1>
+        <h1>Quản lý Ảnh+Slide</h1>
         <ol class="breadcrumb">
             <li><i class="fa fa-dashboard"></i>Trang chủ</li>
-            <li>Quản lý Ảnh+Slide+Ads</li>
+            <li>Quản lý Ảnh+Slide</li>
         </ol>
         <a href="{{ route('admin.slide.create') }}" class="btn btn-primary">
             <i class=" fa fa-fw fa-plus"></i>
@@ -48,11 +48,11 @@
                                                     </td>
                                                     <td>
                                                         @if($c->dislay == 1)
-                                                            {{ "Header" }}
+                                                            {{ "Slide" }}
                                                         @elseif($c->dislay == 2)
-                                                            {{ "Ý kiến" }}
+                                                            {{ "Logo" }}
                                                         @else
-                                                            {{ "Banner Ads"}}
+                                                            {{ "Banner"}}
                                                         @endif
                                                     </td>
                                                     <td>{{ $c->position }}</td>
@@ -92,7 +92,7 @@
             </div>
         </div>
     </section>
-</div><!-- /.content-wrapper -->
+</div>
 @endsection
 @section('script')
 <script type="text/javascript">

@@ -14,6 +14,7 @@
             Thêm mới
         </a>
     </section>
+    @include('errors.message')
 	<section class="content-header">
 	  	<div class="static-content-wrapper">
 		    <div class="static-content">
@@ -38,22 +39,22 @@
 		                                    </thead>
 		                                    <tbody>
 		                                        @foreach($administrator as $key => $c)
-		                                        <tr>
-		                                            <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $c->name }}</td>
-		                                            <td>{{ $c->email }}</td>
-		                                            <td>{{ $c->updated_at }}</td>
-		                                            <td>
-                                                        <a href="{{ route('admin.administrator.update', $c->id)}}">
-                                                            <i class="fa fa-pencil"></i>
-                                                        </a>
-		                                                <a href="{{ route('admin.administrator.destroy', $c->id) }}"
-                                                            type="button"
-		                                                	onclick="return confirm_delete('Bạn có muốn xóa không ?')">
-		                                                    <i class="fa fa-times-circle"></i>
-		                                                </a>
-		                                            </td>
-		                                        </tr>
+    		                                        <tr>
+    		                                            <td>{{ $key + 1 }}</td>
+                                                        <td>{{ $c->name }}</td>
+    		                                            <td>{{ $c->email }}</td>
+    		                                            <td>{{ $c->updated_at }}</td>
+    		                                            <td>
+                                                            <a href="{{ route('admin.administrator.update', $c->id)}}">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+    		                                                <a href="{{ route('admin.administrator.destroy', $c->id) }}"
+                                                                type="button"
+    		                                                	onclick="return confirm_delete('Bạn có muốn xóa không ?')">
+    		                                                    <i class="fa fa-times-circle"></i>
+    		                                                </a>
+    		                                            </td>
+    		                                        </tr>
 		                                        @endforeach
 		                                    </tbody>
 		                                </table>
@@ -67,20 +68,5 @@
 		    </div>
 		</div>
 	</section>
-</div><!-- /.content-wrapper -->
+</div>
 @endsection
-{{-- @section('script')
-<script type="text/javascript">
-        $(function () {
-            $("#example1").DataTable();
-            // $('#example2').DataTable({
-            //     "paging": true,
-            //     "lengthChange": false,
-            //     "searching": false,
-            //     "ordering": true,
-            //     "info": true,
-            //     "autoWidth": false
-            // });
-        });
-    </script>
-@endsection --}}

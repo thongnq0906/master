@@ -12,7 +12,7 @@
                     <div class="title-bai">
                         <h1>{{ $detail->name }}</h1>
                     </div>
-                    <?php echo(html_entity_decode($detail->description)) ?>
+                    {!! $detail->description !!}
                     <br>
                     <div id="fb-root"></div>
                     <div id="fb-root"></div>

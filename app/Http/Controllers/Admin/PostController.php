@@ -28,7 +28,7 @@ class PostController extends Controller
             return view('admin.post.create', compact('data'));
         } else {
 
-            return redirect()->route('admin.cate_post.home')->with('errors', 'Chưa có danh mục');
+            return redirect()->route('admin.cate_post.home')->with('error', 'Chưa có danh mục');
         }
     }
 

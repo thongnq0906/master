@@ -25,75 +25,50 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
+                                @include('errors.message')
                                 <div class="panel-body">
                                     <form role="form" class="form-horizontal" method="POST"
-                                    action="{{-- {{ route('admin.intro.postUpdate', $intro->slug) }} --}}"
+                                    action="{{ route('admin.intro.postUpdate', $intro->slug) }}"
                                     enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <div class="row">
-                                            <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Tiêu đề: </label>
                                                 <div class="col-md-8">
-                                                        <input type="text" class="form-control"
-                                                        placeholder="Nhập tên" name="name" value="{{ $intro->name }}">
-                                                    @if($errors->has('name'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('name') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="text" class="form-control"
+                                                    placeholder="Nhập tên" name="name" value="{{ $intro->name }}">
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('position') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Vị trí: </label>
                                                 <div class="col-md-8">
-                                                    <input type="number" class="form-control"
-                                                    placeholder="Nhập vị trí" name="position"
-                                                    value="{{ $intro->position }}">
-                                                    @if($errors->has('position'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('position') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="number" class="form-control" placeholder="Nhập vị trí"
+                                                    name="position" value="{{ $intro->position }}">
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('description') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Nội dung: </label>
                                                 <div class="col-md-8">
-                                                        <textarea class="form-control" placeholder="Miêu tả"
-                                                        name="description" id="editor1">
-                                                            {{ $intro->description }}
-                                                        </textarea>
-                                                    @if($errors->has('description'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('description') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                     <textarea class="form-control" placeholder="Miêu tả"
+                                                    name="description" id="editor1">
+                                                        {{ $intro->description }}
+                                                    </textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-md-3"></div>
-                                                <div class="col-md-8">
-                                                    <img src="{{ asset($intro->image) }}"
-                                                    style="height: 50px; width: 50px">
-                                                </div>
-                                            </div>
+
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Trạng thái: </label>
                                                 <label class="switch">
                                                     <input type="checkbox" name="status"
                                                     {{ ($intro->status) ? 'checked': '' }}>
-
                                                     <span class="slider round"></span>
                                                     <input type="hidden" name="id" value="1">
                                                 </label>
                                             </div>
-                                            <div class="form-group{{ $errors->has('title_seo') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Title_SEO: </label>
                                                 <div class="col-md-8">
                                                         <input type="text" class="form-control" placeholder="Title SEO"
@@ -107,32 +82,20 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('meta_key') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Meta_key: </label>
                                                 <div class="col-md-8">
-                                                        <textarea type="text" class="form-control" placeholder="Meta_key"
-                                                        name="meta_key">{{ $intro->meta_key }}</textarea>
-                                                    @if($errors->has('meta_key'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('meta_key') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <textarea type="text" class="form-control" placeholder="Meta_key"
+                                                    name="meta_key">{{ $intro->meta_key }}</textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('meta_des') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Meta_des: </label>
                                                 <div class="col-md-8">
                                                     <textarea class="form-control" placeholder="Meta_Des"
                                                     name="meta_des">{{ $intro->meta_des }}</textarea>
-                                                    @if($errors->has('meta_des'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('meta_des') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -158,16 +121,12 @@
         </div>
     </div>
 </section>
-<!-- Main content -->
-</div><!-- /.content-wrapper -->
+</div>
 @endsection
 @section('script')
 <script>
     CKEDITOR.replace( 'editor1', {
-        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
-} );
+        filebrowserBrowseUrl: '{{ route('ckfinder-customer') }}',
+    } );
 </script>
 @endsection

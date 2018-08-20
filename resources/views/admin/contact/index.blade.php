@@ -10,7 +10,6 @@
                         <h1>Liên hệ</h1>
                         <div class="options">
                             <div class="btn-toolbar">
-
                             </div>
                         </div>
                     </div>
@@ -73,5 +72,5 @@
             </div>
         </div>
     </section>
-</div><!-- /.content-wrapper -->
+</div>
 @endsection

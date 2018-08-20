@@ -29,7 +29,7 @@ class ProductController extends Controller
             return view('admin.product.create', compact('data'));
         } else {
 
-            return redirect()->route('admin.cate_product.home')->with('errors', 'Chưa có danh mục');
+            return redirect()->route('admin.cate_product.home')->with('error', 'Chưa có danh mục');
         }
 
     }

@@ -2,7 +2,6 @@
 @section('title', 'Thêm bài viết')
 @section('content')
 <div class="content-wrapper">
-<!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="static-content-wrapper">
             <div class="static-content">
@@ -26,85 +25,62 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                     </div>
+                                    @include('errors.message')
                                     <div class="panel-body">
                                         <form role="form" class="form-horizontal" method="POST"
                                         action="{{ route('admin.post.createPost') }}"
                                         enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="row">
-                                                <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
+                                                <div class="form-group">
                                                     <label class="col-md-3 control-label">Tên: </label>
                                                     <div class="col-md-8">
-                                                            <input type="text" class="form-control"
-                                                            placeholder="Nhập tên" name="name" value="{{ old('name') }}">
-                                                        @if($errors->has('name'))
-                                                            <strong>
-                                                                <span class="help-block">
-                                                                    {{ $errors->first('name') }}
-                                                                </span>
-                                                            </strong>
-                                                        @endif
+                                                        <input type="text" class="form-control"
+                                                        placeholder="Nhập tên" name="name" value="{{ old('name') }}">
                                                     </div>
                                                 </div>
-                                                <div class="form-group{{ $errors->has('image') ? 'has-error' : '' }}">
+
+                                                <div class="form-group">
                                                     <label class="col-md-3 control-label">Ảnh bìa: </label>
                                                     <div class="col-md-8">
-                                                            <input type="file" class="form-control" name="image">
-                                                        @if($errors->has('image'))
-                                                            <strong>
-                                                                <span class="help-block">
-                                                                    {{ $errors->first('image') }}
-                                                                </span>
-                                                            </strong>
-                                                        @endif
+                                                        <input type="file" class="form-control" name="image">
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Trạng thái: </label>
                                                     <label class="switch">
                                                         <input type="checkbox" name="status" value="0">
-
                                                         <span class="slider round"></span>
                                                         <input type="hidden" name="id" value="1">
                                                     </label>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Tin hot: </label>
                                                     <label class="switch">
                                                         <input type="checkbox" name="is_home" value="0">
-
                                                         <span class="slider round"></span>
                                                         <input type="hidden" name="idd" value="1">
                                                     </label>
                                                 </div>
-                                                <div class="form-group{{ $errors->has('position') ? 'has-error' : '' }}">
+
+                                                <div class="form-group">
                                                     <label class="col-md-3 control-label">Vị trí: </label>
                                                     <div class="col-md-8">
-                                                            <input type="number" class="form-control"
-                                                            placeholder="Nhập vị trí" name="position" value="{{ old('position') }}">
-                                                        @if($errors->has('position'))
-                                                            <strong>
-                                                                <span class="help-block">
-                                                                    {{ $errors->first('position') }}
-                                                                </span>
-                                                            </strong>
-                                                        @endif
+                                                        <input type="number" class="form-control"
+                                                        placeholder="Nhập vị trí" name="position" value="{{ old('position') }}">
                                                     </div>
                                                 </div>
-                                                <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
+
+                                                <div class="form-group">
                                                     <label class="col-md-3 control-label">Giới thiệu: </label>
                                                     <div class="col-md-8">
-                                                            <input type="text" class="form-control" placeholder="Giới thiệu"
-                                                            name="title" value="{{ old('title') }}">
-                                                        @if($errors->has('title'))
-                                                            <strong>
-                                                                <span class="help-block">
-                                                                    {{ $errors->first('title') }}
-                                                                </span>
-                                                            </strong>
-                                                        @endif
+                                                        <input type="text" class="form-control" placeholder="Giới thiệu"
+                                                        name="title" value="{{ old('title') }}">
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Miêu tả: </label>
                                                     <div class="col-md-8">
@@ -113,6 +89,7 @@
                                                         </textarea>
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Danh mục: </label>
                                                     <div class="col-md-8">
@@ -121,13 +98,15 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="form-group{{ $errors->has('title_seo') ? 'has-error' : '' }}">
+
+                                                <div class="form-group">
                                                     <label class="col-md-3 control-label">Title_SEO: </label>
                                                     <div class="col-md-8">
                                                         <input type="text" class="form-control" placeholder="Title SEO"
                                                         name="title_seo" value="{{ old('title_seo') }}">
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Meta_key: </label>
                                                     <div class="col-md-8">
@@ -136,6 +115,7 @@
                                                         </textarea>
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Meta_Des: </label>
                                                     <div class="col-md-8">
@@ -164,7 +144,7 @@
             </div>
         </div>
     </section>
-</div><!-- /.content-wrapper -->
+</div>
 @endsection
 @section('script')
 <script>

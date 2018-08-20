@@ -144,19 +144,6 @@
 </div><!-- /.content-wrapper -->
 @endsection
 @section('script')
-{{-- <script type="text/javascript">
-    $( "#target" ).on('change', function(e) {
-        $value = $(this).val();
-        $.ajax({
-            type : 'get',
-            url : '{{ URL::to('admin/product/search')}}',
-            data : {'search':$value},
-            success:function(data){
-                $('tbody').html(data);
-            }
-        });
-    });
-</script> --}}
 <script type="text/javascript">
     $(function () {
         $("#example2").DataTable();

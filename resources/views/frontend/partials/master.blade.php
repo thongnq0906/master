@@ -25,29 +25,12 @@
 <body>
     @include('frontend.partials.header')
     @yield('content')
-
     @include('frontend.partials.footer')
-
-
 
     <script src={{ asset('js/jquery-3.3.1.min.js') }}></script>
     <script src={{ asset('bootstrap/js/bootstrap.min.js') }}></script>
     <script src={{ asset('frontend/js/menu.js') }}></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('.accordion').find('.accordion-toggle').click(function() {
-                $(this).next().slideToggle('600');
-                $(".accordion-content").not($(this).next()).slideUp('600');
-            });
-            $('.accordion-toggle').on('click', function() {
-                $(this).toggleClass('active').siblings().removeClass('active');
-            });
-        });
-    </script>
-    <script type='text/javascript'>window._sbzq||function(e){e._sbzq=[];var t=e._sbzq;t.push(["_setAccount",26536]);var n=e.location.protocol=="https:"?"https:":"http:";var r=document.createElement("script");r.type="text/javascript";r.async=true;r.src=n+"//static.subiz.com/public/js/loader.js";var i=document.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)}(window);
-    </script>
     @yield('script')
 
 </body>

@@ -21,63 +21,47 @@
                 </ol>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-12 col-md-10 col-md-offset-1">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
+                                @include('errors.message')
                                 <div class="panel-body">
                                     <form role="form" class="form-horizontal" method="POST"
                                     action="{{ route('admin.administrator.postUpdate', $administrator->id) }}"
                                     enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <div class="row">
-                                            <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Tên </label>
                                                 <div class="col-md-8">
-                                                        <input type="text" class="form-control"
-                                                        placeholder="Name" name="name" value="{{ $administrator->name }}">
-                                                    @if($errors->has('name'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('name') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="text" class="form-control"placeholder="Name" name="name"
+                                                    value="{{ $administrator->name }}">
                                                 </div>
                                             </div>
-                                            <div class="form-group{{ $errors->has('email') ? 'has-error' : '' }}">
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Email </label>
                                                 <div class="col-md-8">
-                                                        <input type="text" class="form-control"
-                                                        placeholder="Name" name="email" value="{{ $administrator->email }}">
-                                                    @if($errors->has('email'))
-                                                        <strong>
-                                                            <span class="help-block">
-                                                                {{ $errors->first('email') }}
-                                                            </span>
-                                                        </strong>
-                                                    @endif
+                                                    <input type="text" class="form-control"placeholder="Name" name="email"
+                                                    value="{{ $administrator->email }}">
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="password" class="col-md-3 control-label">{{ __('Password mới') }}</label>
                                                 <div class="col-md-8">
-                                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
-
-                                                    @if ($errors->has('password'))
-                                                        <span class="invalid-feedback">
-                                                            <strong>{{ $errors->first('password') }}</strong>
-                                                        </span>
-                                                    @endif
+                                                    <input id="password" type="password"
+                                                    class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="panel-footer">
                                             <div class="row">
                                                 <div class="col-sm-8 col-sm-offset-2">
                                                     <button class="btn-success btn">Lưu</button>
-                                                    <a class="btn-default btn"
-                                                    href="{{ route('admin.administrator.create') }}">
+                                                    <a class="btn-default btn" href="{{ route('admin.administrator.create') }}">
                                                         Hủy
                                                     </a>
                                                     <a class="btn-default btn" href='javascript:goback()'>Quay lại</a>
