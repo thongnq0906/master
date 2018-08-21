@@ -7,15 +7,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
 use App\Models\Cate_product;
-use Image;
+use Image, File;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use App\Models\Images;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::all();
+        $product = Product::orderBy('id', 'DESC')->get();
         $data    = Cate_product::select('id','name','parent_id')->get()->toArray();
 
         return view('admin.product.index', compact('product', 'data'));
@@ -51,13 +52,25 @@ class ProductController extends Controller
         $product->title_seo       = $req['title_seo'];
         $product->meta_key        = $req['meta_key'];
         $product->meta_des        = $req['meta_des'];
-        if($req->hasFile('image')){
+        if ($req->hasFile('image')) {
             $image = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
-            $product->image = ('upload/images/'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/product/'.$filename));
+            $product->image = ('upload/product/'.$filename);
         }
         $product->save();
+
+        if ($req->hasFile('img')) {
+            $img = $req->file('img');
+            foreach ($img as $i) {
+                $filename = date('Y_d_m_H_i_s').'-'. $i->getClientOriginalName();
+                Image::make($i)->save(public_path('upload/detailproduct/'.$filename));
+                $i = new Images;
+                $i->product_id = $product->id;
+                $i->name = ('upload/detailproduct/'.$filename);
+                $i->save();
+            }
+        }
 
         return redirect()->route('admin.product.index');
     }
@@ -66,8 +79,9 @@ class ProductController extends Controller
     {
         $data    = Cate_product::select('id','name','parent_id')->get()->toArray();
         $product = Product::where('slug', $slug)->first();
+        $img_detail = Images::where('product_id', $product->id)->get();
 
-        return view('admin.product.edit', compact('data', 'product'));
+        return view('admin.product.edit', compact('data', 'product', 'img_detail'));
     }
 
     public function postUpdate($slug, Request $req)
@@ -87,15 +101,14 @@ class ProductController extends Controller
         $product->title_seo       = $req['title_seo'];
         $product->meta_key        = $req['meta_key'];
         $product->meta_des        = $req['meta_des'];
-        if($req->hasFile('image')){
-            if(file_exists($product->image))
-            {
+        if ($req->hasFile('image')) {
+            if(file_exists($product->image)) {
                 unlink($product->image);
             }
             $image = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
-            $product->image = ('upload/images/'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/product/'.$filename));
+            $product->image = ('upload/product/'.$filename);
         }
         $validatedData = $req->validate([
             'name'     => 'required|unique:products,name,' .$product->id,
@@ -103,6 +116,17 @@ class ProductController extends Controller
             'position' => 'numeric|nullable|min:0|unique:products,position,' .$product->id,
         ]);
         $product->save();
+        if ($req->hasFile('img')) {
+            $img = $req->file('img');
+            foreach ($img as $key => $i) {
+                $filename = date('Y_d_m_H_i_s').'-'. $i->getClientOriginalName();
+                Image::make($i)->save(public_path('upload/detailproduct/'.$filename));
+                $i = new Images;
+                $i->product_id = $product->id;
+                $i->name = ('upload/detailproduct/'.$filename);
+                $i->save();
+            }
+        }
 
         return redirect()->route('admin.product.index')->with('success', 'Sửa thành công');
     }
@@ -110,13 +134,29 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $result = Product::findOrFail($id);
-        if(file_exists($result->image))
-        {
+        $img = Images::where('product_id', $result->id)->get();
+        if (file_exists($result->image)) {
             unlink($result->image);
+        }
+        foreach ($img as $key => $i) {
+            if (File::exists($i->name)) {
+                File::delete($i->name);
+            }
         }
         $result->delete();
 
         return redirect()->back()->with('success', 'Xóa thành công');
+    }
+
+    public function delImage(Request $request)
+    {
+        $del = Images::find($request->id);
+        $path = $del->name;
+        if(File::exists($path)) {
+            File::delete($path);
+        }
+        $del->delete();
+        echo "Xóa thành công";
     }
 
     public function search(Request $req)
@@ -170,7 +210,7 @@ class ProductController extends Controller
         {
             $checkbox = $req->checkbox;
             foreach ($checkbox as $c) {
-                $result = Product::where('id', $c)->first();
+                $result         = Product::where('id', $c)->first();
                 $result->status = 1;
                 $result->save();
             }
@@ -181,7 +221,7 @@ class ProductController extends Controller
         {
             $checkbox = $req->checkbox;
             foreach ($checkbox as $c) {
-                $result = Product::where('id', $c)->first();
+                $result         = Product::where('id', $c)->first();
                 $result->status = 0;
                 $result->save();
             }

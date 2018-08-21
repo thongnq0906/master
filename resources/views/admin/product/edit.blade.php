@@ -53,6 +53,21 @@
                                                     style="height: 50px; width: 50px">
                                                 </div>
                                             </div>
+                                             <div class="form-group">
+                                                <label class="col-md-3 control-label">Ảnh chi tiết sản phẩm: </label>
+                                                <div class="col-md-8">
+                                                    @foreach($img_detail as $i)
+                                                        <div class="image">
+                                                            <img src="{{ asset($i->name) }}" style="height: 50px; width: 50px">
+                                                            <label><span class="btn btn-danger delImage" id="data-1" data-id="{{ $i->id }}"> X </span></label>
+                                                        </div>
+                                                    @endforeach
+                                                    <a class="btn btn-primary btn-sm addimg" style="margin-top: 2px; margin-left: 0">+ Thêm ảnh</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" id="contentimg">
+                                            </div>
 
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Giá: </label>
@@ -162,5 +177,19 @@
     CKEDITOR.replace( 'editor1', {
         filebrowserBrowseUrl: '{{ route('ckfinder-customer') }}',
     } );
+
+    $(document).ready(function() {
+        $('.addimg').on('click', function(){
+            $('#contentimg').append('<label class="col-md-3 control-label"></label><div class="col-md-8"><input type="file" class="form-control" name="img[]"></div>');
+        });
+        $('.delImage').on('click',function(){
+            id = $(this).data('id');
+            if(confirm('Bạn có muốn xóa ?')){
+                flag = $(this).parent('label').parent('div.image').hide();
+                $.get('http://master.qt/admin/product/delImage/', {id:id},function(data){
+                });
+            }
+        });
+    });
 </script>
 @endsection

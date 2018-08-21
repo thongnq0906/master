@@ -17,6 +17,13 @@ class Product extends Model
 
     public function BillDetail()
     {
+
         return $this->hasMany(BillDetail::class, 'product_id');
+    }
+
+    public function image()
+    {
+
+        return $this->hasMany(Image::class, 'product_id');
     }
 }

@@ -57,6 +57,16 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label class="col-md-3 control-label">Ảnh chi tiết sản phẩm: </label>
+                                                <div class="col-md-8">
+                                                    <a class="btn btn-primary btn-sm addimg" style="margin-top: 2px">+ Thêm ảnh</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" id="contentimg">
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Trạng thái: </label>
                                                 <label class="switch">
                                                     <input type="checkbox" name="status" value="0">
@@ -159,6 +169,12 @@
     CKEDITOR.replace( 'editor1', {
         filebrowserBrowseUrl: '{{ route('ckfinder-customer') }}',
     } );
+
+    $(document).ready(function() {
+        $('.addimg').on('click', function(){
+            $('#contentimg').append('<label class="col-md-3 control-label"></label><div class="col-md-8"><input type="file" class="form-control" name="img[]"></div>');
+        });
+    });
 </script>
 
 @endsection

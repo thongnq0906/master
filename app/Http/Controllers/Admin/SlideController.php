@@ -34,9 +34,9 @@ class SlideController extends Controller
         $slide->status      = (is_null($req['status']) ? '0' : '1');
         if($req->hasFile('image')){
             $image    = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
-            $slide->image = ('upload/images/'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/slide/'.$filename));
+            $slide->image = ('upload/slide/'.$filename);
         }
         $slide->save();
 
@@ -66,9 +66,9 @@ class SlideController extends Controller
                 unlink($slide->image);
             }
             $image    = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
-            $slide->image = ('upload/images/'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/slide/'.$filename));
+            $slide->image = ('upload/slide/'.$filename);
         }
         $validatedData = $req->validate([
             'position' => 'numeric|nullable|min:0|unique:slides,position,' .$slide->id,

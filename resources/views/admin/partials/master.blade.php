@@ -59,8 +59,6 @@
     {{-- <script src="{{ asset('plugins/slimScroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script> --}}
     {{-- <script src="{{ asset('plugins/fastclick/fastclick.min.js') }}" type="text/javascript"></script> --}}
     <script type="text/javascript" src="{{ asset('sitemapstyler/sitemapstyler.js') }}"></script>
-    <script src={{ asset('tinymce/tinymce.min.js') }}></script>
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     @yield('script')
   </body>

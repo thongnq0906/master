@@ -39,11 +39,11 @@ class CatePostController extends Controller
         $cate_post->meta_des    = $req['meta_des'];
         if($req->hasFile('image')){
             $image = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
-            $cate_post->image = ('upload/images/'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/catepost/'.$filename));
+            $cate_post->image = ('upload/catepost/'.$filename);
         }else{
-            $cate_post->image = ('upload/images/avatar5.png');
+            $cate_post->image = ('upload/catepost/avatar5.png');
         }
         $cate_post->save();
 
@@ -77,10 +77,10 @@ class CatePostController extends Controller
                 unlink($cate_post->image);
             }
             $image    = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/catepost/'.$filename));
 
-            $cate_post->image = ('upload/images/'.$filename);
+            $cate_post->image = ('upload/catepost/'.$filename);
 
         }
         $validatedData = $req->validate([
