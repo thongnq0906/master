@@ -47,6 +47,7 @@ Route::group(['middleware' => ['adminLogin', 'web']], function() {
             Route::post('/checkbox', 'Admin\ProductController@checkbox')->name('checkbox');
             Route::post('/status', 'Admin\ProductController@status')->name('admin.product.status');
             Route::post('/is_home', 'Admin\ProductController@is_home')->name('admin.product.is_home');
+            Route::get('delImage','Admin\ProductController@delImage')->name('admin.product.dellimg');
         });
         Route::group(['prefix' => 'cate_post'], function() {
             Route::get('/', 'Admin\CatePostController@index')->name('admin.cate_post.home');

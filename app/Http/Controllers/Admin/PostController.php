@@ -46,12 +46,11 @@ class PostController extends Controller
         $post->title_seo    = $req['title_seo'];
         $post->meta_key     = $req['meta_key'];
         $post->meta_des     = $req['meta_des'];
-        if($req->hasFile('image'))
-        {
+        if ($req->hasFile('image')) {
             $image    = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
-            $post->image = ('upload/images/'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/post/'.$filename));
+            $post->image = ('upload/post/'.$filename);
         }
         $post->save();
 
@@ -80,15 +79,14 @@ class PostController extends Controller
         $post->title_seo    = $req['title_seo'];
         $post->meta_key     = $req['meta_key'];
         $post->meta_des     = $req['meta_des'];
-        if($req->hasFile('image')){
-            if(file_exists($post->image))
-            {
+        if ($req->hasFile('image')){
+            if (file_exists($post->image)) {
                 unlink($post->image);
             }
             $image    = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images/'.$filename));
-            $post->image = ('upload/images/'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/post/'.$filename));
+            $post->image = ('upload/post/'.$filename);
         }
         $validatedData = $req->validate([
             'name'     => 'required|unique:posts,name,' .$post->id,
@@ -102,8 +100,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $result = Post::findOrFail($id);
-        if(file_exists($result->image))
-        {
+        if (file_exists($result->image)) {
             unlink($result->image);
         }
         $result->delete();
@@ -114,8 +111,7 @@ class PostController extends Controller
     public function search(Request $req)
     {
         $id_cate_post = $req->cate_post;
-        if($id_cate_post == 0)
-        {
+        if ($id_cate_post == 0) {
 
             return redirect()->route('admin.post.index');
         }
@@ -140,18 +136,15 @@ class PostController extends Controller
     public function checkbox(Request $req)
     {
         $checkbox = $req->checkbox;
-        if(!isset($req->checkbox))
-        {
+        if (!isset($req->checkbox)) {
 
             return back()->with('success', 'Chưa chọn bài');
         }
-        if($req->select_action == 1)
-        {
+        if ($req->select_action == 1) {
             $checkbox = $req->checkbox;
             foreach ($checkbox as $c) {
                 $result = Post::findOrFail($c);
-                if(file_exists($result->image))
-                {
+                if(file_exists($result->image)) {
                     unlink($result->image);
                 }
                 $result->delete();
@@ -159,8 +152,7 @@ class PostController extends Controller
 
             return redirect()->back()->with('success', 'Xóa thành công');
         }
-        if($req->select_action == 2)
-        {
+        if ($req->select_action == 2) {
             $checkbox = $req->checkbox;
             foreach ($checkbox as $c) {
                 $result = Post::where('id', $c)->first();
@@ -171,8 +163,7 @@ class PostController extends Controller
             return back()->with('success', 'Thao tác thành công');
         }
 
-        if($req->select_action == 3)
-        {
+        if ($req->select_action == 3) {
             $checkbox = $req->checkbox;
             foreach ($checkbox as $c) {
                 $result = Post::where('id', $c)->first();
@@ -182,12 +173,11 @@ class PostController extends Controller
 
             return back()->with('success', 'Thao tác thành công');
         }
-        if($req->select_action == 0)
-        {
+        if ($req->select_action == 0) {
 
             return back()->with('success', 'Chưa chọn thao tác');
         }
-        if($checkbox == NULL){
+        if ($checkbox == NULL){
 
             return back()->with('success', 'Bạn chưa chọn cái nào');
         }
@@ -195,11 +185,9 @@ class PostController extends Controller
 
     public function status(Request $req)
     {
-        if ($req->ajax())
-        {
+        if ($req->ajax()) {
             $result = Post::find($req->id);
-            if ($result->status == 0)
-            {
+            if ($result->status == 0) {
                 $result->status = 1;
             } else {
                 $result->status = 0;
@@ -212,11 +200,9 @@ class PostController extends Controller
 
     public function is_home(Request $req)
     {
-        if ($req->ajax())
-        {
+        if ($req->ajax()) {
             $result = Post::find($req->id);
-            if ($result->is_home == 0)
-            {
+            if ($result->is_home == 0) {
                 $result->is_home = 1;
             } else {
                 $result->is_home = 0;

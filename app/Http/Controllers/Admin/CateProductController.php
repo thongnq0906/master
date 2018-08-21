@@ -36,9 +36,9 @@ class CateProductController extends Controller
         $cate_product->status      = (is_null($req['status']) ? '0' : '1');
     	if($req->hasFile('image')){
             $image    = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images'.$filename));
-            $cate_product->image = ('upload/images'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/cateproduct'.$filename));
+            $cate_product->image = ('upload/cateproduct'.$filename);
         }
     	$cate_product->save();
 
@@ -70,9 +70,9 @@ class CateProductController extends Controller
                 unlink($cate_product->image);
             }
             $image    = $req->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('upload/images'.$filename));
-            $cate_product->image = ('upload/images'.$filename);
+            $filename = date('Y_d_m_H_i_s').'-'. $image->getClientOriginalName();
+            Image::make($image)->save(public_path('upload/cateproduct'.$filename));
+            $cate_product->image = ('upload/cateproduct'.$filename);
 
         }
         $validatedData = $req->validate([
